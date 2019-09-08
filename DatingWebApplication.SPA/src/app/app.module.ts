@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -11,8 +12,12 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/ErrorInterceptorProvider';
 import { AlertifyService } from './_services/altertify.service';
-
-
+import { ListsComponent } from './lists/lists.component';
+import { MemberListComponent } from './member-list/member-list.component';
+import { MessagesComponent } from './messages/messages.component';
+import { appRoutes } from './routes';
+import { AuthGuard } from './_guards/auth.guard';
+ 
 
 
 @NgModule({
@@ -20,19 +25,23 @@ import { AlertifyService } from './_services/altertify.service';
     AppComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent 
+    RegisterComponent,
+    MemberListComponent,
+    MessagesComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    
+    RouterModule.forRoot(appRoutes)   
   ],
   providers: [
     ErrorInterceptorProvider,
     AuthService,
-    AlertifyService
+    AlertifyService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
