@@ -23,6 +23,8 @@ namespace DatingWebApplication.API.Helpers
                 .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
             CreateMap<Photo, PhotoForDetailsDTO>();
+
+            CreateMap<UserForEditDTO, User>();
         }
     }
 }
