@@ -141,7 +141,7 @@ namespace DatingWebApplication.API.Controllers
             }
 
             if(photoFromRepo.PublicId==null)
-            {
+            {   
                 _datingRepository.Delete(photoFromRepo);
             }
 

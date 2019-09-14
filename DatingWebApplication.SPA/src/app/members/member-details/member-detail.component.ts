@@ -6,7 +6,6 @@ import { User } from '../../_models/user';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/altertify.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
-import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 
 
 @Component({
