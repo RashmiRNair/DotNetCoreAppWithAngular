@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingWebApplication.API.Data;
 using DatingWebApplication.API.DTO;
+using DatingWebApplication.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace DatingWebApplication.API.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ServiceFilter(typeof(LogUserActivity))]
     public class UsersController : ControllerBase
     {
         private readonly IDatingRepository _repository;
