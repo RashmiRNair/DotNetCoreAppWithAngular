@@ -1,4 +1,5 @@
-﻿using DatingWebApplication.API.Models;
+﻿using DatingWebApplication.API.Helpers;
+using DatingWebApplication.API.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace DatingWebApplication.API.Data
 
         Task<bool> SaveAll();
 
-        Task<IEnumerable<User>> GetUsers();
+        Task<PagedList<User>> GetUsers(UserParams userParams);
 
         Task<User> GetUser(int id);
 
