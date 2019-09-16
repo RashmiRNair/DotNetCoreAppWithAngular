@@ -17,7 +17,7 @@ export class ListsComponent implements OnInit {
 
   users: User[];
   pagination: Pagination;
-  likeParam: string;
+  likesParam: string;
 
 
   /** home ctor */
@@ -31,12 +31,12 @@ export class ListsComponent implements OnInit {
       this.users = data['users'].result;
       this.pagination = data['users'].pagination;
     });
-    this.likeParam = "Likees";
+    this.likesParam = "Likees";
   }
 
 
   loadUsers() {         
-    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null,this.likeParam)
+    this.userService.getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, null, this.likesParam)
       .subscribe((res: PaginatedResult<User[]>) => {
         this.users = res.result;
         this.pagination = res.pagination;

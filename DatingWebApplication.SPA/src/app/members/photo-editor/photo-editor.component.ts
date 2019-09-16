@@ -20,7 +20,7 @@ export class PhotoEditorComponent implements OnInit {
   currentMain: Photo;
 
   public uploader: FileUploader;
-  private hasBaseDropZoneOver = false;
+  hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
 
   constructor(private authService:AuthService, private userService: UserService, private alertify: AlertifyService) { }
@@ -29,7 +29,7 @@ export class PhotoEditorComponent implements OnInit {
     this.initializeUploader();
   }
 
-  private fileOverBase(e: any): void {
+  fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
