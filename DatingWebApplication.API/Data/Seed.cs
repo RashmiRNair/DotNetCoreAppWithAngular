@@ -1,4 +1,5 @@
 ﻿using DatingWebApplication.API.Models;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,36 @@ namespace DatingWebApplication.API.Data
 {
     public class Seed
     {
-        public static void SeedUsers(DataContext dataContext)
+        public static void SeedUsers(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
-            if (!dataContext.Users.Any())
+            if (!userManager.Users.Any())
             {
                 var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
-                foreach (var user in users)
+                var roles = new List<Role> {
+                    new Role{Name = "Member"},
+                    new Role{Name = "Admin"},
+                    new Role{Name = "Moderator"},
+                    new Role{Name = "VIP" },
+                };
+                foreach (var item in roles)
                 {
-                    byte[] passwordHash, passwordSalt;
-                    CreatePasswordHash("password", out passwordHash, out passwordSalt);
-                    user.PasswordHash = passwordHash;
-                    user.PasswordSalt = passwordSalt;
-                    user.Username = user.Username.ToLower();
-                    dataContext.Users.Add(user);
+                    roleManager.CreateAsync(item).Wait();
                 }
 
-                dataContext.SaveChanges();
+                foreach (var user in users)
+                {
+                    userManager.CreateAsync(user, "password").Wait();
+                    userManager.AddToRoleAsync(user, "member");
+                }
+
+                var adminUser = new User { UserName = "Admin" };
+                var result = userManager.CreateAsync(adminUser, "password").Result;
+                if(result.Succeeded)
+                {
+                    var admin = userManager.FindByNameAsync("Admin").Result;
+                    userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
+                }
             }
         }
 

@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 
 
+
 @Injectable()
 export class AuthService {
   baseUrl = environment.apiUrl + "auth/";
@@ -47,6 +48,20 @@ export class AuthService {
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  roleMatch(allowedRoles): boolean {
+
+    let isMatch = false;
+    const userRoles = this.decodedToken.role as Array<string>;
+    allowedRoles.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return isMatch;
+      }
+    });
+
+    return isMatch;
   }
 
 }

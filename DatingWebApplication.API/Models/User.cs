@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DatingWebApplication.API.Models
 {
-    public class User
-    {
-        public int Id { get; set; }
-
-        public string Username { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-
-        public byte[] PasswordSalt { get; set; }
-
+    public class User: IdentityUser<int>
+    {     
         public string  Gender { get; set; }
 
         public DateTime DateOfBirth { get; set; }
@@ -43,5 +36,6 @@ namespace DatingWebApplication.API.Models
 
         public virtual ICollection<Message> MessageRecieved { get; set; }
 
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
